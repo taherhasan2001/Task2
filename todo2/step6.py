@@ -28,10 +28,9 @@ class StringCalculator:
 
         # iterate over the parts and add them to the sum
         for part in parts:
-            sum += int(part)
-        # check if sum is more than 1000 
-        if sum > 1000:
-            sum = sum-1000
+            # check if it bigger than 1000
+            if int(part) <= 1000:
+                sum += int(part)
 
         # return the sum
         return sum
@@ -74,4 +73,4 @@ def test_negative_numbers_not_allowed():
 # test to add numbers bigger than 1000
 def test_add_numbers_bigger_than_1000():
     calculator = StringCalculator()
-    assert calculator.add("2,3,4,1,1000") == 10
+    assert calculator.add("2,1001") == 2
