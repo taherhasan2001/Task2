@@ -1,4 +1,4 @@
-import re
+import re,pytest
 class StringCalculator:
     def add(self, numbers: str) -> int:
         # if the input string is empty, return 0
@@ -27,6 +27,7 @@ class StringCalculator:
         if not delimiters:
             parts = numbers.split(delimiter)
         else:
+            second_part = second_part.replace('\n', ',')
             for i in range(len(delimiters)):
                 second_part = second_part.replace(delimiters[i], ',')
             parts = second_part.split(',')
@@ -76,3 +77,24 @@ def test_to_handle_Delimiters_can_be_of_any_length():
 def test_to_handle_Allow_multiple_delimiters():
     calculator = StringCalculator()
     assert calculator.add("//[+][-][***]\n1+2-3***4") == 10
+
+# Define the test function using the pytest.mark.parametrize decorator
+@pytest.mark.parametrize("numbers, expected", [
+# test step 7 format
+    ("//[***]\n1***2***3", 6),
+    ("//[*]\n1\n2,3", 6),
+    ("//[-]\n1-2,3", 6),
+    ("//[&&&&]\n1&&&&2&&&&3", 6),
+# test step 8 format
+    ("//[+]\n1+2+3+4", 10),
+    ("//[+][-][*]\n1+2-3*4", 10),
+    ("//[+][-][*]\n1", 1),
+    ("//[+][-][*]\n1,2\n3\n4", 10),
+# test step 9 format
+    ("//[+][-][***][^][%%%%%]\n1+2-3***4", 10),
+    ("//[+]\n1+2+3\n4", 10),
+])
+def test_add_two_numbers(numbers, expected):
+    calculator = StringCalculator()
+    result = calculator.add(numbers)
+    assert result == expected
