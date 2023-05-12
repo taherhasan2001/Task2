@@ -1,3 +1,6 @@
+import pytest
+
+
 class StringCalculator:
     def add(self, numbers: str) -> int:
         # if the input string is empty, return 0
@@ -25,27 +28,52 @@ class StringCalculator:
         return sum
 
 
-
 # test the "add" method with an empty string as input
 def test_add_empty_string():
     calculator = StringCalculator()
     assert calculator.add("") == 0
 
-# test the "add" method with a single number as input
-def test_add_single_number():
-    calculator = StringCalculator()
-    assert calculator.add("5") == 5
 
-# test the "add" method with two numbers as input
-def test_add_two_numbers():
+# Test the "add" method with a single number as input
+@pytest.mark.parametrize("numbers, expected", [
+    ("5", 5),  # Test case: numbers = "5", expected result = 5
+    ("10", 10),  # Test case: numbers = "10", expected result = 10
+])
+def test_add_single_number(numbers, expected):
     calculator = StringCalculator()
-    assert calculator.add("2,3") == 5
+    result = calculator.add(numbers)
+    # Check if the result matches the expected value
+    assert result == expected
 
-# test the "add" method with unknown amount of numbers as input
-def test_add_an_unknown_amount_of_numbers():
-    calculator = StringCalculator()
-    assert calculator.add("2,3,4,1") == 10
 
-def test_to_handle_different_delimiters():
+# Test the "add" method with a two number as input
+@pytest.mark.parametrize("numbers, expected", [
+    ("1,4", 5),  # Test case: numbers = "1,4", expected result = 5
+    ("20,2", 22),  # Test case: numbers = "20,2", expected result = 22
+])
+def test_add_two_numbers(numbers, expected):
     calculator = StringCalculator()
-    assert calculator.add("//;\n1;2") == 3
+    result = calculator.add(numbers)
+    assert result == expected
+
+
+# Test the "add" method with unknown amount of numbers as input
+@pytest.mark.parametrize("numbers, expected", [
+    ("2,3,4,1", 10),  # Test case: numbers = "2,3,4,1", expected result = 10
+    ("3,4,5,6", 18),  # Test case: numbers = "3,4,5,6", expected result = 18
+])
+def test_add_an_unknown_amount_of_numbers(numbers, expected):
+    calculator = StringCalculator()
+    result = calculator.add(numbers)
+    assert result == expected
+
+
+# Test the "add" method to handle different delimiters
+@pytest.mark.parametrize("numbers, expected", [
+    ("//;\n1;2", 3),   # Test case: numbers = "//;\n1;2", expected result = 3
+    ("//*\n10*2", 12),   # Test case: numbers = "//*\n10*2", expected result = 12
+])
+def test_to_handle_different_delimiters(numbers, expected):
+    calculator = StringCalculator()
+    result = calculator.add(numbers)
+    assert result == expected
