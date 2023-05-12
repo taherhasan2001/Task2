@@ -1,7 +1,9 @@
 import pytest
 
+
 class NegativeNumbersNotAllowed(Exception):
     pass
+
 
 class StringCalculator:
     def add(self, numbers: str) -> int:
@@ -17,7 +19,7 @@ class StringCalculator:
 
         # Check if any negative numbers are present and raise an exception if so
         if '-' in numbers:
-            negatives=[]
+            negatives = []
             for part in parts:
                 if '-' in part:
                     negatives.append(part)
