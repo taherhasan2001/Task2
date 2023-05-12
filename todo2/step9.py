@@ -27,6 +27,7 @@ class StringCalculator:
         if not delimiters:
             parts = numbers.split(delimiter)
         else:
+            second_part = second_part.replace('\n', ',')
             for i in range(len(delimiters)):
                 second_part = second_part.replace(delimiters[i], ',')
             parts = second_part.split(',')
