@@ -1,3 +1,6 @@
+# Import the necessary pytest module
+import pytest
+
 class StringCalculator:
     def add(self, numbers: str) -> int:
         # if the input string is empty, return 0
@@ -26,13 +29,24 @@ def test_add_empty_string():
     assert calculator.add("") == 0
 
 
-# test the "add" method with a single number as input
-def test_add_single_number():
+# Test the "add" method with a single number as input
+@pytest.mark.parametrize("numbers, expected", [
+    ("5", 5),  # Test case: numbers = "5", expected result = 5
+    ("10", 10),  # Test case: numbers = "10", expected result = 10
+])
+def test_add_single_number(numbers, expected):
     calculator = StringCalculator()
-    assert calculator.add("5") == 5
+    result = calculator.add(numbers)
+    # Check if the result matches the expected value
+    assert result == expected
 
 
-# test the "add" method with two numbers as input
-def test_add_two_numbers():
+# Define the test function using the pytest.mark.parametrize decorator
+@pytest.mark.parametrize("numbers, expected", [
+    ("1,4", 5),  # Test case: numbers = "1,4", expected result = 5
+    ("20,2", 22),  # Test case: numbers = "20,2", expected result = 22
+])
+def test_add_two_numbers(numbers, expected):
     calculator = StringCalculator()
-    assert calculator.add("2,3") == 5
+    result = calculator.add(numbers)
+    assert result == expected
