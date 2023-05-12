@@ -53,7 +53,7 @@ def test_add_two_numbers(numbers, expected):
 # Test the "add" method with unknown amount of numbers as input
 @pytest.mark.parametrize("numbers, expected", [
     ("2,3,4,1", 10),  # Test case: numbers = "2,3,4,1", expected result = 10
-    ("3,4,5,6", 18),  # Test case: numbers = "3,4,5,6", expected result = 14
+    ("3,4,5,6", 18),  # Test case: numbers = "3,4,5,6", expected result = 18
 ])
 def test_add_an_unknown_amount_of_numbers(numbers, expected):
     calculator = StringCalculator()
