@@ -24,8 +24,6 @@ class StringCalculator:
         return sum
 
 
-
-
 # test the "add" method with an empty string as input
 def test_add_empty_string():
     calculator = StringCalculator()
@@ -64,11 +62,6 @@ def test_add_an_unknown_amount_of_numbers(numbers, expected):
     calculator = StringCalculator()
     result = calculator.add(numbers)
     assert result == expected
-
-
-def test_to_handle_new_lines_between_numbers():
-    calculator = StringCalculator()
-    assert calculator.add("2\n3,4,1") == 10
 
 
 # Test the "add" method to handle new lines between numbers
